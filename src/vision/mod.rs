@@ -214,14 +214,14 @@ impl Drop for Features {
 ///
 /// - `input` - the input image Array
 /// - `thr` - FAST threshold for which pixel of the circle around the center pixel is considered to
-/// be greater or smaller
+///     be greater or smaller
 /// - `arc_len` - length of arc (or sequential segment) to be tested, must be within range [9-16]
 /// - `non_max` - performs non-maximal supression if true
 /// - `feat_ratio` - maximum ratio of features to detect, the maximum number of features is
-/// calculated by `feature_ratio * num of elements`. The maximum number of features is not based on
-/// the score, instead, features detected after the limit is reached are discarded.
+///     calculated by `feature_ratio * num of elements`. The maximum number of features is not based on
+///     the score, instead, features detected after the limit is reached are discarded.
 /// - `edge` - is the length of the edges in the image to be discarded by FAST(minimum is 3, as the
-/// radius of the circle)
+///     radius of the circle)
 ///
 /// # Return Values
 ///
@@ -314,13 +314,13 @@ where
 ///
 /// - `input` - the input image Array
 /// - `fast_thr` - FAST threshold for which a pixel of the circle around the central pixel is
-/// considered to be brighter or darker
+///     considered to be brighter or darker
 /// - `max_feat` - maximum number of features to hold
 /// - `scl_fctr` - factor to downsample the input image, meaning that each level with hold prior
-/// level dimensions divided by `scl_fctr`
+///     level dimensions divided by `scl_fctr`
 /// - `levels` - number of levels to be computed for the image pyramid
 /// - `blur_img` - blur image with a Gaussian filter with sigma=2 before computing descriptors to
-/// increase robustness against noise if true
+///     increase robustness against noise if true
 ///
 /// # Return Values
 ///
@@ -370,7 +370,7 @@ where
 /// - `query` - Array containing the data to be queried
 /// - `train` - Array containing the data to be used as training data
 /// - `dist_dims` - indicates the dimension to analyze for distance (the dimension indicated here
-/// must be of equal length for both query and train arrays)
+///     must be of equal length for both query and train arrays)
 /// - `n_dist` - is the number of smallest distances to return (currently, only values <= 256 are supported)
 ///
 ///
@@ -536,10 +536,10 @@ where
 ///
 /// Importance of the parameters, t and g is explained below:
 ///
-/// - t determines how similar points have to be to the nucleusbefore they are considered to be a
-/// part of the univalue segment
-/// - g determines the minimum size of the univalue segment. For a large enough g, SUSAN operator
-/// becomes an edge dectector.
+/// - `t` determines how similar points have to be to the nucleusbefore they are considered to be a
+///     part of the univalue segment
+/// - `g` determines the minimum size of the univalue segment. For a large enough g, SUSAN operator
+///     becomes an edge dectector.
 ///
 /// # Parameters
 ///

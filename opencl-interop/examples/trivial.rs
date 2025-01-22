@@ -18,7 +18,7 @@ fn main() {
     // (1) Define which platform and device(s) to use. Create a context,
     // queue, and program then define some dims..
     let platform_id = core::default_platform().unwrap();
-    let device_ids = core::get_device_ids(&platform_id, None, None).unwrap();
+    let device_ids = core::get_device_ids(platform_id, None, None).unwrap();
     let device_id = device_ids[0];
     let context_properties = ContextProperties::new().platform(platform_id);
     let context =
@@ -33,7 +33,7 @@ fn main() {
         None,
     )
     .unwrap();
-    let queue = core::create_command_queue(&context, &device_id, None).unwrap();
+    let queue = core::create_command_queue(&context, device_id, None).unwrap();
     let dims = [1 << 20, 1, 1];
 
     // (2) Create a `Buffer`:

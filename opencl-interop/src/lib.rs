@@ -138,10 +138,11 @@ pub fn get_device_type() -> DeviceType {
     let mut out: i32 = 0;
     let err_val = unsafe { afcl_get_device_type(&mut out as *mut c_int) };
     handle_error_general(AfError::from(err_val));
-    match out {
+    /*match out {
         -1 => unsafe { mem::transmute(out as u64) },
         _ => DeviceType::ALL,
-    }
+    }*/
+    unsafe { mem::transmute::<u64, DeviceType>(out as u64) }
 }
 
 /// Fetch Active ArrayFire device's vendor platform

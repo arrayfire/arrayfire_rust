@@ -428,7 +428,7 @@ where
 /// - `odim0` is the output height
 /// - `odim1` is the output width
 /// - `method` indicates which interpolation method to use for resizing. It uses enum
-/// [InterpType](./enum.InterpType.html) to identify the interpolation method.
+///     [InterpType](./enum.InterpType.html) to identify the interpolation method.
 ///
 /// # Return Values
 ///
@@ -476,7 +476,7 @@ pub fn resize<T: HasAfEnum>(
 /// - `odim0` is the output height
 /// - `odim1` is the output width
 /// - `method` indicates which interpolation method to use for resizing. It uses enum
-/// [InterpType](./enum.InterpType.html) to identify the interpolation method.
+///     [InterpType](./enum.InterpType.html) to identify the interpolation method.
 /// - `is_inverse` indicates if to apply inverse/forward transform
 ///
 /// # Return Values
@@ -530,7 +530,7 @@ pub fn transform<T: HasAfEnum>(
 /// - `theta` is the amount of angle (in radians) image should be rotated
 /// - `crop` indicates if the rotated image has to be cropped to original size
 /// - `method` indicates which interpolation method to use for rotating the image. It uses enum
-/// [InterpType](./enum.InterpType.html) to identify the interpolation method.
+///     [InterpType](./enum.InterpType.html) to identify the interpolation method.
 ///
 /// # Return Values
 ///
@@ -666,7 +666,7 @@ pub fn scale<T: HasAfEnum>(
 /// - `odim0` is the output length along first dimension
 /// - `odim1` is the output length along second dimension
 /// - `method` indicates which interpolation method to use for rotating the image. It uses enum
-/// [InterpType](./enum.InterpType.html) to identify the interpolation method.
+///     [InterpType](./enum.InterpType.html) to identify the interpolation method.
 /// - `is_inverse` indicates if to apply inverse/forward transform
 ///
 /// # Return Values
@@ -1036,7 +1036,7 @@ pub fn gaussian_kernel(rows: i32, cols: i32, sigma_r: f64, sigma_c: f64) -> Arra
 /// - `input` is the input image
 /// - `tospace` is the target color space. Takes values of [ColorSpace](./enum.ColorSpace.html)
 /// - `fromspace` is the source image color space. Takes values of
-/// [ColorSpace](./enum.ColorSpace.html)
+///     [ColorSpace](./enum.ColorSpace.html)
 ///
 /// # Return Values
 ///
@@ -1422,7 +1422,7 @@ where
 ///
 /// - `input` is the input image in YCbCr color space
 /// - `standard` is the [YCbCr standard](./enum.YCCStd.html) in which input image color space is
-/// present.
+///     present.
 ///
 /// # Return Values
 ///
@@ -1488,7 +1488,7 @@ where
 ///
 /// - `input` is the input image
 /// - `moment` is the type of moment to be computed, takes a value of
-/// [enum](./enum.MomentType.html)
+///     [enum](./enum.MomentType.html)
 ///
 /// # Return Values
 ///
@@ -1509,7 +1509,7 @@ where
 ///
 /// - `input` is the input image
 /// - `moment` is the type of moment to be computed, takes a value of
-/// [enum](./enum.MomentType.html)
+///     [enum](./enum.MomentType.html)
 ///
 /// # Return Values
 ///

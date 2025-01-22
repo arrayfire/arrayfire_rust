@@ -11,12 +11,12 @@ fn main() {
 
     // Choose platform & device(s) to use. Create a context, queue,
     let platform_id = ocl_core::default_platform().unwrap();
-    let device_ids = ocl_core::get_device_ids(&platform_id, None, None).unwrap();
+    let device_ids = ocl_core::get_device_ids(platform_id, None, None).unwrap();
     let device_id = device_ids[0];
     let context_properties = ContextProperties::new().platform(platform_id);
     let context =
         ocl_core::create_context(Some(&context_properties), &[device_id], None, None).unwrap();
-    let queue = ocl_core::create_command_queue(&context, &device_id, None).unwrap();
+    let queue = ocl_core::create_command_queue(&context, device_id, None).unwrap();
     let dims = [8, 1, 1];
 
     // Create a `Buffer`:

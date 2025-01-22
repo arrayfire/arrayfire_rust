@@ -113,7 +113,7 @@ fn read_file(file_name: &std::path::Path) -> String {
         .read(true)
         .write(false)
         .create(false)
-        .open(&file_path);
+        .open(file_path);
 
     let mut file = match options {
         Ok(file) => file,
@@ -256,13 +256,13 @@ fn run_cmake_command(conf: &Config, build_dir: &std::path::Path) {
 
 #[cfg(not(windows))]
 fn run_cmake_command(conf: &Config, build_dir: &std::path::Path) {
-    let _ = fs::create_dir(&build_dir);
+    let _ = fs::create_dir(build_dir);
 
     let options = prep_cmake_options(conf);
     println!("options are {:?}", options);
 
     let mut cmake_cmd = Command::new("cmake");
-    cmake_cmd.current_dir(&build_dir);
+    cmake_cmd.current_dir(build_dir);
 
     run(
         cmake_cmd
@@ -277,7 +277,7 @@ fn run_cmake_command(conf: &Config, build_dir: &std::path::Path) {
     );
 
     let mut make_cmd = Command::new("make");
-    make_cmd.current_dir(&build_dir);
+    make_cmd.current_dir(build_dir);
     run(
         make_cmd
             .arg(format!("-j{}", conf.build_threads))

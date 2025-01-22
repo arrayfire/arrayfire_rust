@@ -151,7 +151,8 @@ macro_rules! dim_reduce_func_def {
             $out_type: HasAfEnum,
         {
             let mut temp: af_array = std::ptr::null_mut();
-            let err_val = unsafe { $ffi_name(&mut temp as *mut af_array, input.get(), dim) };
+            let err_val =
+                unsafe { $ffi_name(std::ptr::from_mut::<af_array>(&mut temp), input.get(), dim) };
             HANDLE_ERROR(AfError::from(err_val));
             temp.into()
         }
@@ -783,7 +784,7 @@ all_reduce_func_def2!(
 ///
 /// - `input` is the input Array
 /// - `val` is the val that replaces all `NAN` values of the Array before reduction operation is
-/// performed.
+///     performed.
 ///
 /// # Return Values
 ///
@@ -829,7 +830,7 @@ where
 ///
 /// - `input` is the input Array
 /// - `val` is the val that replaces all `NAN` values of the Array before reduction operation is
-/// performed.
+///     performed.
 ///
 /// # Return Values
 ///

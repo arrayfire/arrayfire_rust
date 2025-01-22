@@ -874,7 +874,9 @@ shift_spec!(Shr, shr);
 #[cfg(op_assign)]
 mod op_assign {
 
-    use super::*;
+    use super::{
+        add, bitand, bitor, bitxor, div, mem, mul, rem, shiftl, shiftr, sub, ImplicitPromote,
+    };
     use crate::core::{assign_gen, Array, Indexer, Seq};
     use std::ops::{AddAssign, DivAssign, MulAssign, RemAssign, SubAssign};
     use std::ops::{BitAndAssign, BitOrAssign, BitXorAssign, ShlAssign, ShrAssign};
@@ -973,7 +975,7 @@ where
 }
 
 /// Perform bitwise complement on all values of Array
-pub fn bitnot<T: HasAfEnum>(input: &Array<T>) -> Array<T>
+pub fn bitnot<T>(input: &Array<T>) -> Array<T>
 where
     T: HasAfEnum + IntegralType,
 {

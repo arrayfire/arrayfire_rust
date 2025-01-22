@@ -185,7 +185,7 @@ extern "C" {
 /// - `input` is the input Array
 /// - `pos` Array contains the interpolation locations
 /// - `method` indicates the type of interpolation method that be used. It is of type enum
-/// [InterpType](./enum.InterpType.html)
+///     [InterpType](./enum.InterpType.html)
 /// - `off_grid` is the value that will set in the output Array when certain index is out of bounds
 ///
 /// # Return Values
@@ -248,7 +248,7 @@ pub fn approx1_v2<T, P>(
 /// - `start` is the first index along `interp_dim`
 /// - `step` is the uniform spacing value between subsequent indices along `interp_dim`
 /// - `method` indicates the type of interpolation method that be used. It is of type enum
-/// [InterpType](./enum.InterpType.html)
+///     [InterpType](./enum.InterpType.html)
 /// - `off_grid` is the value that will set in the output Array when certain index is out of bounds
 ///
 /// # Return Values
@@ -322,7 +322,7 @@ pub fn approx1_uniform_v2<T, P>(
 /// - `pos0` Array contains the interpolation locations for first dimension
 /// - `pos1` Array contains the interpolation locations for second dimension
 /// - `method` indicates the type of interpolation method that be used. It is of type enum
-/// [InterpType](./enum.InterpType.html)
+///     [InterpType](./enum.InterpType.html)
 /// - `off_grid` is the value that will set in the output Array when certain index is out of bounds
 ///
 /// # Return Values
@@ -393,7 +393,7 @@ pub fn approx2_v2<T, P>(
 /// - `start0` is the first index along `interp_dim1`
 /// - `step0` is the uniform spacing value between subsequent indices along `interp_dim1`
 /// - `method` indicates the type of interpolation method that be used. It is of type enum
-/// [InterpType](./enum.InterpType.html)
+///     [InterpType](./enum.InterpType.html)
 /// - `off_grid` is the value that will set in the output Array when certain index is out of bounds
 ///
 /// # Return Values
@@ -492,9 +492,9 @@ pub fn set_fft_plan_cache_size(cache_size: usize) {
 ///
 /// - `input` is the input Array
 /// - `norm_factor` is the normalization factor with which the input is scaled before the
-/// transformation is applied
+///     transformation is applied
 /// - `odim0` is the length of output signals - used for either truncating or padding the input
-/// signals
+///     signals
 ///
 /// # Return Values
 ///
@@ -516,7 +516,7 @@ where
 ///
 /// - `input` is the input Array
 /// - `norm_factor` is the normalization factor with which the input is scaled before the
-/// transformation is applied
+///     transformation is applied
 /// - `odim0` is the length of output signal first dimension - used for either truncating or padding the input
 /// - `odim1` is the length of output signal second dimension - used for either truncating or padding the input
 ///
@@ -553,7 +553,7 @@ where
 ///
 /// - `input` is the input Array
 /// - `norm_factor` is the normalization factor with which the input is scaled before the
-/// transformation is applied
+///     transformation is applied
 /// - `odim0` is the length of output signal first dimension - used for either truncating or padding the input
 /// - `odim1` is the length of output signal second dimension - used for either truncating or padding the input
 /// - `odim2` is the length of output signal third dimension - used for either truncating or padding the input
@@ -593,9 +593,9 @@ where
 ///
 /// - `input` is the input Array
 /// - `norm_factor` is the normalization factor with which the input is scaled before the
-/// transformation is applied
+///     transformation is applied
 /// - `odim0` is the length of output signals - used for either truncating or padding the input
-/// signals
+///     signals
 ///
 /// # Return Values
 ///
@@ -617,7 +617,7 @@ where
 ///
 /// - `input` is the input Array
 /// - `norm_factor` is the normalization factor with which the input is scaled before the
-/// transformation is applied
+///     transformation is applied
 /// - `odim0` is the length of output signal first dimension - used for either truncating or padding the input
 /// - `odim1` is the length of output signal second dimension - used for either truncating or padding the input
 ///
@@ -654,7 +654,7 @@ where
 ///
 /// - `input` is the input Array
 /// - `norm_factor` is the normalization factor with which the input is scaled before the
-/// transformation is applied
+///     transformation is applied
 /// - `odim0` is the length of output signal first dimension - used for either truncating or padding the input
 /// - `odim1` is the length of output signal second dimension - used for either truncating or padding the input
 /// - `odim2` is the length of output signal third dimension - used for either truncating or padding the input

@@ -181,8 +181,8 @@ impl ConstGenerator for c32 {
         let err_val = unsafe {
             af_constant_complex(
                 &mut temp as *mut af_array,
-                (*self).re as c_double,
-                (*self).im as c_double,
+                self.re as c_double,
+                self.im as c_double,
                 dims.ndims() as c_uint,
                 dims.get().as_ptr() as *const dim_t,
                 1,
@@ -201,8 +201,8 @@ impl ConstGenerator for c64 {
         let err_val = unsafe {
             af_constant_complex(
                 &mut temp as *mut af_array,
-                (*self).re as c_double,
-                (*self).im as c_double,
+                self.re as c_double,
+                self.im as c_double,
                 dims.ndims() as c_uint,
                 dims.get().as_ptr() as *const dim_t,
                 3,
@@ -321,7 +321,7 @@ where
 ///
 /// - `dims` is the size of Array
 /// - `seq_dim` is the dimension along which range values are populated, all values along other
-/// dimensions are just repeated
+///     dimensions are just repeated
 ///
 /// # Return Values
 /// Array
@@ -403,7 +403,7 @@ pub fn identity<T: HasAfEnum>(dims: Dim4) -> Array<T> {
 ///
 /// - `input` is the input Array
 /// - `dim` is the diagonal index relative to principal diagonal where values from input Array are
-/// to be placed
+///     to be placed
 ///
 /// # Return Values
 ///
@@ -789,10 +789,10 @@ where
 /// # Parameters
 ///
 /// - `a` is the Array whose element will be assigned to output if corresponding element in `cond` Array is
-/// `True`
+///     `True`
 /// - `cond` is the Array with boolean values
 /// - `b` is the Array whose element will be assigned to output if corresponding element in `cond` Array is
-/// `False`
+///     `False`
 ///
 /// # Return Values
 ///
@@ -819,10 +819,10 @@ where
 /// # Parameters
 ///
 /// - `a` is the scalar that is assigned to output if corresponding element in `cond` Array is
-/// `True`
+///     `True`
 /// - `cond` is the Array with conditional values
 /// - `b` is the Array whose element will be assigned to output if corresponding element in `cond` Array is
-/// `False`
+///     `False`
 ///
 /// # Return Values
 ///
@@ -849,10 +849,10 @@ where
 /// # Parameters
 ///
 /// - `a` is the Array whose element will be assigned to output if corresponding element in `cond` Array is
-/// `True`
+///     `True`
 /// - `cond` is the Array with conditional values
 /// - `b` is the scalar that is assigned to output if corresponding element in `cond` Array is
-/// `False`
+///     `False`
 ///
 /// # Return Values
 ///
@@ -881,7 +881,7 @@ where
 /// - `a` is the Array whose element will be replaced with element from `b` if corresponding element in `cond` Array is `True`
 /// - `cond` is the Array with conditional values
 /// - `b` is the Array whose element will replace the element in output if corresponding element in `cond` Array is
-/// `False`
+///     `False`
 ///
 /// # Return Values
 ///
@@ -908,7 +908,7 @@ where
 /// - `a` is the Array whose element will be replaced with element from `b` if corresponding element in `cond` Array is `True`
 /// - `cond` is the Array with conditional values
 /// - `b` is the scalar that will replace the element in output if corresponding element in `cond` Array is
-/// `False`
+///     `False`
 ///
 /// # Return Values
 ///
