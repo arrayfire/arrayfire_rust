@@ -530,6 +530,44 @@ where
         HANDLE_ERROR(AfError::from(err_val));
     }
 
+    /// Creates a new vector and copies Array data into it
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use arrayfire::{Array, Dim4};
+    /// let a = Array::new(&[1,2,3,4], Dim4::new(&[2,2,1,1]));
+    /// let v = a.host_vec();
+    /// assert_eq!(v, vec![1,2,3,4]);
+    /// ```
+    pub fn host_vec(&self) -> Vec<T> {
+        let mut r = vec![T::default(); self.elements()];
+        self.host(&mut r);
+        r
+    }
+
+    /// Returns the value contained in this Array as a scalar if it only contains a single value
+    ///
+    /// If the Array contains exactly one element, returns Some(value). If it contains
+    /// more than one element, returns None.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use arrayfire::{Array, Dim4};
+    /// let a = Array::new(&[1.0f32], Dim4::new(&[1, 1, 1, 1]));
+    /// assert_eq!(a.scalar(), Some(1.0f32));
+    /// ```
+    pub fn scalar(&self) -> Option<T> {
+        let n = self.elements();
+        if n != 1 {
+            return None;
+        }
+        let mut v = [T::default(); 1];
+        self.host(&mut v);
+        Some(v[0])
+    }
+
     /// Evaluates any pending lazy expressions that represent the data in the Array object
     pub fn eval(&self) {
         let err_val = unsafe { af_eval(self.handle) };
