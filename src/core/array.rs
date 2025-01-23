@@ -169,7 +169,7 @@ extern "C" {
 ///
 /// ### NOTE
 ///
-/// All operators(traits) from std::ops module implemented for Array object
+/// All operators(traits) from [`std::ops`] module implemented for Array object
 /// carry out element wise operations. For example, `*` does multiplication of
 /// elements at corresponding locations in two different Arrays.
 pub struct Array<T> {
@@ -190,7 +190,7 @@ macro_rules! is_func {
         pub fn $fn_name(&self) -> bool {
             unsafe {
                 let mut ret_val: bool = false;
-                let err_val = $ffi_fn(&mut ret_val as *mut bool, self.handle);
+                let err_val = $ffi_fn(std::ptr::from_mut::<bool>(&mut ret_val), self.handle);
                 HANDLE_ERROR(AfError::from(err_val));
                 ret_val
             }
@@ -214,7 +214,7 @@ where
     /// let indices = Array::new(&values, Dim4::new(&[3, 1, 1, 1]));
     /// print(&indices);
     /// ```
-    /// An example of creating an Array from half::f16 array
+    /// An example of creating an Array from [`half::f16`] array
     ///
     /// ```rust
     /// use arrayfire::{Array, Dim4, is_half_available, print};
@@ -239,10 +239,10 @@ where
         let mut temp: af_array = std::ptr::null_mut();
         let err_val = unsafe {
             af_create_array(
-                &mut temp as *mut af_array,
-                slice.as_ptr() as *const c_void,
+                std::ptr::from_mut::<af_array>(&mut temp),
+                slice.as_ptr().cast::<c_void>(),
                 dims.ndims() as c_uint,
-                dims.get().as_ptr() as *const c_longlong,
+                dims.get().as_ptr().cast::<c_longlong>(),
                 aftype as c_uint,
             )
         };
@@ -259,12 +259,12 @@ where
         let mut temp: af_array = std::ptr::null_mut();
         let err_val = unsafe {
             af_create_strided_array(
-                &mut temp as *mut af_array,
-                slice.as_ptr() as *const c_void,
+                std::ptr::from_mut::<af_array>(&mut temp),
+                slice.as_ptr().cast::<c_void>(),
                 offset as dim_t,
                 dims.ndims() as c_uint,
-                dims.get().as_ptr() as *const c_longlong,
-                strides.get().as_ptr() as *const c_longlong,
+                dims.get().as_ptr().cast::<c_longlong>(),
+                strides.get().as_ptr().cast::<c_longlong>(),
                 aftype as c_uint,
                 1_u32,
             )
@@ -287,9 +287,9 @@ where
         let mut temp: af_array = std::ptr::null_mut();
         let err_val = unsafe {
             af_create_handle(
-                &mut temp as *mut af_array,
+                std::ptr::from_mut::<af_array>(&mut temp),
                 dims.ndims() as c_uint,
-                dims.get().as_ptr() as *const c_longlong,
+                dims.get().as_ptr().cast::<c_longlong>(),
                 aftype as c_uint,
             )
         };
@@ -374,7 +374,7 @@ where
         let mut temp: af_array = std::ptr::null_mut();
         let err_val = unsafe {
             af_device_array(
-                &mut temp as *mut af_array,
+                std::ptr::from_mut::<af_array>(&mut temp),
                 dev_ptr as *mut c_void,
                 dims.ndims() as c_uint,
                 dims.get().as_ptr() as *const dim_t,
@@ -393,7 +393,8 @@ where
     /// was active when Array was created.
     pub fn get_backend(&self) -> Backend {
         let mut ret_val: u32 = 0;
-        let err_val = unsafe { af_get_backend_id(&mut ret_val as *mut c_uint, self.handle) };
+        let err_val =
+            unsafe { af_get_backend_id(std::ptr::from_mut::<c_uint>(&mut ret_val), self.handle) };
         HANDLE_ERROR(AfError::from(err_val));
         match (err_val, ret_val) {
             (0, 1) => Backend::CPU,
@@ -410,7 +411,8 @@ where
     /// Return the device id on which Array was created.
     pub fn get_device_id(&self) -> i32 {
         let mut ret_val: i32 = 0;
-        let err_val = unsafe { af_get_device_id(&mut ret_val as *mut c_int, self.handle) };
+        let err_val =
+            unsafe { af_get_device_id(std::ptr::from_mut::<c_int>(&mut ret_val), self.handle) };
         HANDLE_ERROR(AfError::from(err_val));
         ret_val
     }
@@ -418,7 +420,8 @@ where
     /// Returns the number of elements in the Array
     pub fn elements(&self) -> usize {
         let mut ret_val: dim_t = 0;
-        let err_val = unsafe { af_get_elements(&mut ret_val as *mut dim_t, self.handle) };
+        let err_val =
+            unsafe { af_get_elements(std::ptr::from_mut::<dim_t>(&mut ret_val), self.handle) };
         HANDLE_ERROR(AfError::from(err_val));
         ret_val as usize
     }

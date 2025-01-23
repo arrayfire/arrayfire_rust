@@ -342,7 +342,7 @@ binary_func!(
     af_hypot
 );
 
-/// Type Trait to convert to an [Array](./struct.Array.html)
+/// Type Trait to convert to an [`Array`](./struct.Array.html)
 ///
 /// Generic functions that overload the binary operations such as add, div, mul, rem, ge etc. are
 /// bound by this trait to allow combinations of scalar values and Array objects as parameters
@@ -991,7 +991,7 @@ where
     T: HasAfEnum + IntegralType,
 {
     let mut temp: af_array = std::ptr::null_mut();
-    let err_val = unsafe { af_bitnot(&mut temp as *mut af_array, input.get()) };
+    let err_val = unsafe { af_bitnot(std::ptr::from_mut::<af_array>(&mut temp), input.get()) };
     HANDLE_ERROR(AfError::from(err_val));
     temp.into()
 }
