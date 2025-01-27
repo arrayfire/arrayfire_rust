@@ -81,6 +81,7 @@ pub(crate) mod model {
     pub trait Model {
         fn predict(&self, feature: &Array<f32>) -> Array<f32>;
 
+        #[allow(clippy::too_many_arguments)]
         fn train(
             &mut self,
             training_features: &Array<f32>,
@@ -285,7 +286,7 @@ mod ann {
 
         fn back_propagate(
             &mut self,
-            signals: &Vec<Array<f32>>,
+            signals: &[Array<f32>],
             labels: &Array<u8>,
             learning_rate_alpha: f64,
         ) {

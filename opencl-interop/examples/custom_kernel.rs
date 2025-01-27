@@ -13,7 +13,7 @@ fn main() {
 
     af::info();
     let dims = af::dim4!(8);
-    let af_buffer = af::constant(0f32, dims.clone());
+    let af_buffer = af::constant(0f32, dims);
     af::af_print!("af_buffer", af_buffer);
 
     let src = r#"

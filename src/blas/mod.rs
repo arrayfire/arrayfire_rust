@@ -214,7 +214,7 @@ where
 ///
 /// - `arr` is the input Array
 /// - `conjugate` is a boolean that indicates if the transpose operation needs to be a conjugate
-/// transpose
+///     transpose
 ///
 /// # Return Values
 ///
@@ -232,7 +232,7 @@ pub fn transpose<T: HasAfEnum>(arr: &Array<T>, conjugate: bool) -> Array<T> {
 ///
 /// - `arr` is the input Array that has to be transposed
 /// - `conjugate` is a boolean that indicates if the transpose operation needs to be a conjugate
-/// transpose
+///     transpose
 pub fn transpose_inplace<T: HasAfEnum>(arr: &mut Array<T>, conjugate: bool) {
     let err_val = unsafe { af_transpose_inplace(arr.get(), conjugate) };
     HANDLE_ERROR(AfError::from(err_val));

@@ -3,6 +3,8 @@ use super::core::{
     HANDLE_ERROR,
 };
 
+use core::borrow::Borrow;
+
 use libc::{c_double, c_int, c_uint};
 
 extern "C" {
@@ -145,13 +147,20 @@ extern "C" {
 macro_rules! dim_reduce_func_def {
     ($doc_str: expr, $fn_name: ident, $ffi_name: ident, $out_type: ty) => {
         #[doc=$doc_str]
-        pub fn $fn_name<T>(input: &Array<T>, dim: i32) -> Array<$out_type>
+        pub fn $fn_name<T, A>(input: A, dim: i32) -> Array<$out_type>
         where
             T: HasAfEnum,
             $out_type: HasAfEnum,
+            A: Borrow<Array<T>>,
         {
             let mut temp: af_array = std::ptr::null_mut();
-            let err_val = unsafe { $ffi_name(&mut temp as *mut af_array, input.get(), dim) };
+            let err_val = unsafe {
+                $ffi_name(
+                    std::ptr::from_mut::<af_array>(&mut temp),
+                    input.borrow().get(),
+                    dim,
+                )
+            };
             HANDLE_ERROR(AfError::from(err_val));
             temp.into()
         }
@@ -783,7 +792,7 @@ all_reduce_func_def2!(
 ///
 /// - `input` is the input Array
 /// - `val` is the val that replaces all `NAN` values of the Array before reduction operation is
-/// performed.
+///     performed.
 ///
 /// # Return Values
 ///
@@ -829,7 +838,7 @@ where
 ///
 /// - `input` is the input Array
 /// - `val` is the val that replaces all `NAN` values of the Array before reduction operation is
-/// performed.
+///     performed.
 ///
 /// # Return Values
 ///
@@ -1238,7 +1247,7 @@ where
 /// - `key` is the key Array
 /// - `input` is the data on which scan is to be performed
 /// - `dim` is the dimension along which scan operation is to be performed
-/// - `op` takes value of [BinaryOp](./enum.BinaryOp.html) enum indicating
+/// - `op` takes value of [`BinaryOp`](./enum.BinaryOp.html) enum indicating
 ///    the type of scan operation
 /// - `inclusive` says if inclusive/exclusive scan is to be performed
 ///
@@ -1260,7 +1269,7 @@ where
     let mut temp: af_array = std::ptr::null_mut();
     let err_val = unsafe {
         af_scan_by_key(
-            &mut temp as *mut af_array,
+            std::ptr::from_mut::<af_array>(&mut temp),
             key.get(),
             input.get(),
             dim,
@@ -1300,8 +1309,8 @@ macro_rules! dim_reduce_by_key_func_def {
             let mut out_vals: af_array = std::ptr::null_mut();
             let err_val = unsafe {
                 $ffi_name(
-                    &mut out_keys as *mut af_array,
-                    &mut out_vals as *mut af_array,
+                    std::ptr::from_mut::<af_array>(&mut out_keys),
+                    std::ptr::from_mut::<af_array>(&mut out_vals),
                     keys.get(),
                     vals.get(),
                     dim,

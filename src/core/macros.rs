@@ -543,8 +543,8 @@ mod tests {
         let inpt: Vec<i32> = (0..10).collect();
         let gold: Vec<i32> = vec![2, 3, 7, 8];
 
-        println!("input {:?}", inpt);
-        println!("gold {:?}", gold);
+        println!("input {inpt:?}");
+        println!("gold {gold:?}");
 
         let orig_arr = Array::new(&inpt, dim4!(5, 2));
 

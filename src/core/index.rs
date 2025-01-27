@@ -263,7 +263,7 @@ where
             &mut temp as *mut af_array,
             input.get(),
             seqs.len() as u32,
-            seqs.as_ptr() as *const SeqInternal,
+            seqs.as_ptr(),
         )
     };
     HANDLE_ERROR(AfError::from(err_val));
@@ -535,7 +535,7 @@ where
             &mut temp as *mut af_array,
             lhs.get() as af_array,
             seqs.len() as c_uint,
-            seqs.as_ptr() as *const SeqInternal,
+            seqs.as_ptr(),
             rhs.get() as af_array,
         )
     };
@@ -800,7 +800,8 @@ mod tests {
         idxrs.set_index(&indices, 0, None); // 2nd arg is indexing dimension
         idxrs.set_index(&seq4gen, 1, Some(false)); // 3rd arg indicates batch operation
 
-        let _sub2 = assign_gen(&mut a, &idxrs, &b);
+        assign_gen(&mut a, &idxrs, &b);
+        // let _sub2 = assign_gen(&mut a, &idxrs, &b);
         //println!("a(indices, seq(0, 2, 1))"); print(&sub2);
         // [5 3 1 1]
         //     0.0000     0.2190     0.3835

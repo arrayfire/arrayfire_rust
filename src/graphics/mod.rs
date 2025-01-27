@@ -988,7 +988,7 @@ impl Window {
     ///
     /// - `points` is an Array containing list of coordinates of vector field
     /// - `directions` is an Array containing directions at the coordinates specified in `points`
-    /// Array.
+    ///     Array.
     /// - `title` parameter has effect only in multiview mode, where this string
     ///    is displayed as the respective cell/view title.
     pub fn draw_vector_field<T>(

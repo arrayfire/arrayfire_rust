@@ -101,7 +101,7 @@ where
 /// # Parameters
 ///
 /// - `in` is the input/output matrix. This will contain random data after the function call is
-/// complete.
+///     complete.
 ///
 /// # Return Values
 ///
@@ -440,9 +440,9 @@ where
 /// - `input` is the input matrix
 /// - `ntype` is specifies the required norm type using enum [NormType](./enum.NormType.html)
 /// - `p` specifies the value of *P* when `ntype` is one of VECTOR_P, MATRIX_L_PQ. It is ignored
-/// for other values of `ntype`
+///     for other values of `ntype`
 /// - `q` specifies the value of *Q* when `ntype` is MATRIX_L_PQ. This parameter is ignored if
-/// `ntype` is anything else.
+///     `ntype` is anything else.
 ///
 /// # Return Values
 ///

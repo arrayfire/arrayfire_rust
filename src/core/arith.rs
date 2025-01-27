@@ -10,6 +10,7 @@ use num::Zero;
 
 use libc::c_int;
 use num::Complex;
+use std::borrow::Borrow;
 use std::mem;
 use std::ops::Neg;
 use std::ops::{Add, BitAnd, BitOr, BitXor, Div, Mul, Not, Rem, Shl, Shr, Sub};
@@ -122,11 +123,11 @@ macro_rules! unary_func {
         #[doc=$doc_str]
         ///
         /// This is an element wise unary operation.
-        pub fn $fn_name<T: HasAfEnum>(input: &Array<T>) -> Array< T::$out_type >
+        pub fn $fn_name<T: HasAfEnum, A: Borrow<Array<T>>>(input: A) -> Array< T::$out_type >
         where T::$out_type: HasAfEnum {
 
                 let mut temp: af_array = std::ptr::null_mut();
-                let err_val = unsafe { $ffi_fn(&mut temp as *mut af_array, input.get()) };
+                let err_val = unsafe { $ffi_fn(&mut temp as *mut af_array, input.borrow().get()) };
                 HANDLE_ERROR(AfError::from(err_val));
                 temp.into()
 
@@ -251,7 +252,7 @@ unary_func!(
 );
 
 macro_rules! unary_boolean_func {
-    [$doc_str: expr, $fn_name: ident, $ffi_fn: ident] => (
+    [$doc_str: expr, $fn_name: ident, $method_name: ident, $ffi_fn: ident] => (
         #[doc=$doc_str]
         ///
         /// This is an element wise unary operation.
@@ -263,12 +264,22 @@ macro_rules! unary_boolean_func {
                 temp.into()
 
         }
+
+        impl<T: HasAfEnum> Array<T> {
+            #[doc=$doc_str]
+            ///
+            /// Element-wise unary operation.
+            pub fn $method_name(&self) -> Array<bool> {
+                crate::core::arith::$fn_name(self)
+            }
+        }
     )
 }
 
-unary_boolean_func!("Check if values are zero", iszero, af_iszero);
-unary_boolean_func!("Check if values are infinity", isinf, af_isinf);
-unary_boolean_func!("Check if values are NaN", isnan, af_isnan);
+// TODO: Re-evaluate method names..
+unary_boolean_func!("Check if values are zero", iszero, zeros, af_iszero);
+unary_boolean_func!("Check if values are infinity", isinf, infs, af_isinf);
+unary_boolean_func!("Check if values are NaN", isnan, nans, af_isnan);
 
 macro_rules! binary_func {
     ($doc_str: expr, $fn_name: ident, $ffi_fn: ident) => {
@@ -331,7 +342,7 @@ binary_func!(
     af_hypot
 );
 
-/// Type Trait to convert to an [Array](./struct.Array.html)
+/// Type Trait to convert to an [`Array`](./struct.Array.html)
 ///
 /// Generic functions that overload the binary operations such as add, div, mul, rem, ge etc. are
 /// bound by this trait to allow combinations of scalar values and Array objects as parameters
@@ -874,7 +885,9 @@ shift_spec!(Shr, shr);
 #[cfg(op_assign)]
 mod op_assign {
 
-    use super::*;
+    use super::{
+        add, bitand, bitor, bitxor, div, mem, mul, rem, shiftl, shiftr, sub, ImplicitPromote,
+    };
     use crate::core::{assign_gen, Array, Indexer, Seq};
     use std::ops::{AddAssign, DivAssign, MulAssign, RemAssign, SubAssign};
     use std::ops::{BitAndAssign, BitOrAssign, BitXorAssign, ShlAssign, ShrAssign};
@@ -973,12 +986,12 @@ where
 }
 
 /// Perform bitwise complement on all values of Array
-pub fn bitnot<T: HasAfEnum>(input: &Array<T>) -> Array<T>
+pub fn bitnot<T>(input: &Array<T>) -> Array<T>
 where
     T: HasAfEnum + IntegralType,
 {
     let mut temp: af_array = std::ptr::null_mut();
-    let err_val = unsafe { af_bitnot(&mut temp as *mut af_array, input.get()) };
+    let err_val = unsafe { af_bitnot(std::ptr::from_mut::<af_array>(&mut temp), input.get()) };
     HANDLE_ERROR(AfError::from(err_val));
     temp.into()
 }
